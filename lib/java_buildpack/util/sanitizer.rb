@@ -1,5 +1,6 @@
+# Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright (c) 2013 the original author or authors.
+# Copyright (c) 2014 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,16 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Configuration for JRE repositories keyed by vendor
-# Pre Java 1.8, permgen was used instead of metaspace.  Please see the documentation for more detail.
----
-# You must specify a the repository root of an Oracle JRE repository. Please see the documentation for more detail.
-# e.g.  repository_root: "http://example.com/oracle-jre/{platform}/{architecture}"
+# A mixin that adds the ability to turn a +String+ into sanitized uri
+class String
 
-repository_root: "https://s3-eu-west-1.amazonaws.com/jvm-registry"
-version: 1.8.0_+
-memory_heuristics:
-  heap: 15
-  metaspace: 5
-  stack: 1
-  native: 2
+  # Takes a uri and strips out any credentials it may contain.
+  #
+  # @return [String] the sanitized uri
+  def sanitize_uri
+    rich_uri          = URI(self)
+    rich_uri.user     = nil
+    rich_uri.password = nil
+    rich_uri.to_s
+  end
+
+end
