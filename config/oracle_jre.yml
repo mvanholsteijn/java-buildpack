@@ -21,8 +21,8 @@
 
 repository_root: "https://s3-eu-west-1.amazonaws.com/jvm-registry"
 version: 1.8.0_+
-memory_heuristics:
-  heap: 75
-   metaspace: 10
-  stack: 5
-  native: 10
+#memory_heuristics:
+  #heap: 75
+  #metaspace: 10
+  #stack: 5
+  #native: 10
